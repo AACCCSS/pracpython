@@ -3,7 +3,11 @@
 ## Pedir en arreglo 2: Caliificaciones
 ## Funciones altas, reportes, busqueda (Busca por nombre la calificacion retornando posición).
 
-## Plus: Dar de baja al alumno
+## Modificaciones de clase 13 - Octubre 2026: 
+### Plus: Dar de baja al alumno  
+### Plus: Modificar nombre de alumno
+### Modificación: Obtener el promedio grupal
+
 alumnos = []
 calificacion = []
 
@@ -24,12 +28,22 @@ def bajar_alumno():
         
         print("Dando de baja alumno: {0}".format(alumnos[i]))
         # Borramos de forma segura en ambos arreglos usando el mismo índice
-        del alumnos[i]
-        del calificacion[i]
+        alumnos.pop(i)
+        calificacion.pop(i)
     else:
         print("Alumno no encontrado")
     print("\n")
 
+# Modificar nombres
+def modifica_alumnos():
+    nombre = input("Ingrese nombre a modificar: ")
+    encontrado = False
+    for i in range(len(alumnos)):
+        if alumnos[i] == nombre: 
+            alumnos[i] = input ("Nuevo nombre: ")
+            encontrado = True
+    if(not encontrado):
+        print("Nombre no encontrado!")
 
 def reporte_alumnos():
     if len(alumnos) == 0:
@@ -71,7 +85,8 @@ while True:
     print("2. Ver reporte")
     print("3. Buscar calificacion de alumno")
     print("4. Dar de baja alumno")
-    print("5. Salir")
+    print("5. Modificar nombre de alumno")
+    print("6. Salir")
     opcion = input("Seleccione una opción: ")
 
     if opcion == "1":
@@ -84,7 +99,11 @@ while True:
         bajar_alumno()
 
     elif opcion == "5":
+        modifica_alumnos()
+
+    elif(opcion == "6"):
         print("Programa finalizado.")
         break
+    
     else:
         print("Opción incorrecta.\n")
