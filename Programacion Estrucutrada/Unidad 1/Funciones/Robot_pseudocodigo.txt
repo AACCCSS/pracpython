@@ -1,0 +1,160 @@
+// ============================================================
+// PROGRAMA: Robot de Inspección
+// DESCRIPCIÓN: Menú interactivo que genera y evalúa datos
+//              de batería, temperatura y distancia.
+// ============================================================
+
+// -------------------- FUNCIONES DE EVALUACIÓN --------------------
+
+FUNCIÓN evaluar_bateria(valor)
+    SI valor < 20 ENTONCES
+        ESCRIBIR "Estado: Crítica"
+        ESCRIBIR "🚨 ALARMA ACTIVADA 🚨"
+        ESCRIBIR "ESTADO DE LA BATERIA MUY BAJA!!"
+    FIN SI
+
+    SI valor > 20 Y valor < 60 ENTONCES
+        ESCRIBIR "Estado: Advertencia"
+    FIN SI
+
+    SI valor > 60 ENTONCES
+        ESCRIBIR "Estado: Normal"
+    FIN SI
+FIN FUNCIÓN
+
+
+FUNCIÓN evaluar_temperatura(valor)
+    SI valor < 40 ENTONCES
+        ESCRIBIR "Estado: Normal"
+    FIN SI
+
+    SI valor > 40 Y valor < 70 ENTONCES
+        ESCRIBIR "Estado: ADVERTENCIA!"
+    FIN SI
+
+    SI valor > 70 ENTONCES
+        ESCRIBIR "Estado: SOBRECALENTAMIENTO!"
+        ESCRIBIR "🚨 ALARMA ACTIVADA 🚨"
+        ESCRIBIR "TEMPERATURA MUY ALTA!"
+    FIN SI
+FIN FUNCIÓN
+
+
+FUNCIÓN evaluar_distancia(valor)
+    SI valor < 20 ENTONCES
+        ESCRIBIR "Estado: Obstáculo"
+        ESCRIBIR "🚨 ALARMA ACTIVADA 🚨"
+        ESCRIBIR "OBSTÁCULO OBSTRUYENDO EL CAMINO"
+    FIN SI
+
+    SI valor > 20 Y valor < 50 ENTONCES
+        ESCRIBIR "Estado: Precaución"
+    FIN SI
+
+    SI valor > 50 ENTONCES
+        ESCRIBIR "Estado: Libre"
+    FIN SI
+FIN FUNCIÓN
+
+
+// -------------------- FUNCIONES GENERADORAS --------------------
+
+FUNCIÓN generar_bateria() : ENTERO
+    RETORNAR aleatorio_entero(0, 100)
+FIN FUNCIÓN
+
+
+FUNCIÓN generar_temperatura() : ENTERO
+    RETORNAR aleatorio_entero(0, 150)
+FIN FUNCIÓN
+
+
+FUNCIÓN generar_distancia() : ENTERO
+    RETORNAR aleatorio_entero(0, 70)
+FIN FUNCIÓN
+
+
+// -------------------- REPORTE GENERAL --------------------
+
+FUNCIÓN reporte_general()
+    ESCRIBIR "Realizando reporte general...", salto_de_línea
+
+    bateria     ← generar_bateria()
+    temperatura ← generar_temperatura()
+    distancia   ← generar_distancia()
+
+    ESCRIBIR "Batería: ", bateria
+    evaluar_bateria(bateria)
+    ESCRIBIR salto_de_línea
+
+    ESCRIBIR "Temperatura: ", temperatura
+    evaluar_temperatura(temperatura)
+    ESCRIBIR salto_de_línea
+
+    ESCRIBIR "Distancia: ", distancia
+    evaluar_distancia(distancia)
+    ESCRIBIR salto_de_línea
+FIN FUNCIÓN
+
+
+// -------------------- MENÚ PRINCIPAL --------------------
+
+FUNCIÓN menu() : ENTERO
+    ESCRIBIR "[1] Generar datos"
+    ESCRIBIR "[2] Consultar estado de batería"
+    ESCRIBIR "[3] Consulta temperatura"
+    ESCRIBIR "[4] Consulta distancia"
+    ESCRIBIR "[5] Reporte general"
+    ESCRIBIR "[6] Salir"
+
+    LEER seleccion            // convertir a entero
+    ESCRIBIR salto_de_línea
+
+    SEGÚN seleccion HACER
+        CASO 1:
+            ESCRIBIR "Temperatura:", generar_temperatura()
+            ESCRIBIR "Batería:",     generar_distancia()   // (nota: bug en el original)
+            ESCRIBIR "Distancia:",   generar_distancia()
+            ESCRIBIR salto_de_línea
+
+        CASO 2:
+            ESCRIBIR "Batería:"
+            ESCRIBIR generar_bateria()
+            ESCRIBIR salto_de_línea
+
+        CASO 3:
+            ESCRIBIR "Temperatura:"
+            ESCRIBIR generar_temperatura()
+            ESCRIBIR salto_de_línea
+
+        CASO 4:
+            ESCRIBIR "Distancia:"
+            ESCRIBIR generar_distancia()
+            ESCRIBIR salto_de_línea
+
+        CASO 5:
+            reporte_general()
+            ESCRIBIR salto_de_línea
+
+        CASO 6:
+            ESCRIBIR "Saliendo..."
+            ESCRIBIR salto_de_línea
+            RETORNAR 6
+
+        POR DEFECTO:
+            // sin acción (retorna 0)
+    FIN SEGÚN
+
+    RETORNAR 0
+FIN FUNCIÓN
+
+
+// -------------------- PROGRAMA PRINCIPAL --------------------
+
+INICIO
+    MIENTRAS VERDADERO HACER
+        SI menu() = 6 ENTONCES
+            ROMPER
+        FIN SI
+    FIN MIENTRAS
+FIN
