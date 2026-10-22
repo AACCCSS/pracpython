@@ -100,7 +100,8 @@ def administra_info():
             
 
     
-
+# Muestra el valor de piezas producidas, asegurandose que no imprima una lista vacia con la condicional de que longitud de lista de piezas no sea menor a 1. 
+# Muestra el valor de sensores
 def mostrar_reporte():
     print("==== Mostrando reporte ====")
     print("Piezas producidas: ")
@@ -113,6 +114,10 @@ def mostrar_reporte():
     print(banda["Sensores"])
 
 
+# Ciclo principal 
+# muestra opciones a elegir que llama las funciones asignadas
+# uso de try except para controlar mejor las entradas validas
+# uso de match para controlar la selección del usuario
 
 while(True): 
     
