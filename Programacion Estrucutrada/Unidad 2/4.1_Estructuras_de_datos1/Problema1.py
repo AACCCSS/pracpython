@@ -8,7 +8,7 @@
 
 """
 ================= Programa 1 =================
-Registro de temperaturas de motores
+Registro de temperaturas de motores ingresado por el usuario
 Desarrolla programa que:
 Almacene (lista)  temperaturas registradas de 10 motores industriales. 
 
@@ -26,9 +26,7 @@ def M_IngreseTemperatura():
         print("Ingrese el valor del motor: ",i+1)
         op = int(input(""))
         temp_motor.append(op)
-        
-        
-    
+            
 
 def Mostrar():
     print(temp_motor)
